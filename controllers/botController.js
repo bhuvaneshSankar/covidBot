@@ -3,10 +3,17 @@ const botService = require('../services/botService');
 const CONSTANTS = require('../const/constants');
 
 /***
- * controller for adding the user to the userlist file
+ * controller for adding the user to the collection
  */
-function addUserBot(userId, userName){
-    return botService.addUser(userId, userName);
+async function addUserBot(userId, userName){
+    let result;
+    try{
+        result = await botService.addUser(userId, userName);
+    }
+    catch(e){
+        result = false;
+    }
+    return result;
 }
 /**
  * controller for getting the usercontrolls data 
@@ -16,7 +23,7 @@ function getUserControlsBot(userName){
     return botService.getUserControls(userName);
 }
 /***
- * controller for sending message to all the users in the userslist
+ * controller for sending message to all the users in the collection
  */
 function sendMessageToUsersBot(telegram){
     return botService.sendMessageToUsers(telegram);

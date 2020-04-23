@@ -1,13 +1,17 @@
 const express = require('express');
+const mongoose = require('mongoose');
+
 var TelegramBot = require('node-telegram-bot-api');
 const CONSTANTS = require('./const/constants');
-
 let botController = require('./controllers/botController');
+
 
 require('dotenv').config()
 const app = express();
 const telegram = new TelegramBot(process.env.TELEGRAMKEY, { polling: true });
-
+mongoose.connect(process.env.DBURL, {
+    useNewUrlParser: true
+})
 
 /***
  * bot responds according to the user messages
@@ -19,7 +23,7 @@ telegram.on("text", async (message) => {
         if(message.from.last_name != undefined){
             userName += ' ' + message.from.last_name;
         }
-        if(botController.addUserBot(userId, userName)===true){
+        if(await botController.addUserBot(userId, userName)===true){
             let userControls = botController.getUserControlsBot(userName);
             telegram.sendMessage(message.chat.id, userControls); 
             botController.sendMessageToUserBot(telegram, userId);
@@ -29,7 +33,7 @@ telegram.on("text", async (message) => {
         }
     }
     else if(message.text.toLowerCase().indexOf(CONSTANTS.BOTREQUESTS.WORLD)===0){
-        
+
         let replyData = await botController.getWorldStatsBot();
 
         telegram.sendMessage(message.chat.id, replyData); 
