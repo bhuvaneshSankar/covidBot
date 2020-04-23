@@ -56,7 +56,6 @@ function sendMessageToUsers(telegram){
     let userIds = [];
     UserModel.find({}, async (err, users)=>{
         if(err){
-            console.log('error here', error);
         }
         let worldStats = await getWorldStatsBot();
         let indiaStats = await getIndiaStatsBot();
