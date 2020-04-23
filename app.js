@@ -57,8 +57,8 @@ telegram.on("text", async (message) => {
       telegram.sendMessage(message.chat.id, CONSTANTS.MESSAGES.USERCONTROLS);
   }
 });
-//28800000
-setInterval(sendMesageToUsers, 60000);
+
+setInterval(sendMesageToUsers, 28800000);
 function sendMesageToUsers(){
     botController.sendMessageToUsersBot(telegram);
 }
