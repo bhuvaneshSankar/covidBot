@@ -49,8 +49,7 @@ telegram.on("text", async (message) => {
   }
 });
 
-
-setInterval(sendMesageToUsers, 10000);
+setInterval(sendMesageToUsers, 28800000);
 function sendMesageToUsers(){
     botController.sendMessageToUsersBot(telegram);
 }
