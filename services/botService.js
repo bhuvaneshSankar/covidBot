@@ -14,26 +14,31 @@ function removeAllUser(){
  */
  async function addUser(userId, userName){
     let result;
-    await UserModel.find({id: userId}).then( async ( users)=>{
-        if(users.length === 0){
-            const user = new UserModel({
-                id: userId, 
-                name: userName
-            });
-            try{
-                await user.save();
-            }
-            catch(e){
+    try{
+        await UserModel.find({id: userId}).then( async ( users)=>{
+            if(users.length === 0){
+                const user = new UserModel({
+                    id: userId, 
+                    name: userName
+                });
+                try{
+                    await user.save();
+                }
+                catch(e){
+                    result = false;
+                }
+                result = true;
+            }    
+            else{
+                //user exists
                 result = false;
             }
-            result = true;
-        }    
-        else{
-            //user exists
-            result = false;
-        }
-        return result;
-    });
+            return result;
+        });
+    }
+    catch(e){
+        result = false;
+    }
     return result;
 }
 /***
