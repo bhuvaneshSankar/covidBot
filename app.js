@@ -23,12 +23,17 @@ telegram.on("text", async (message) => {
         if(message.from.last_name != undefined){
             userName += ' ' + message.from.last_name;
         }
-        if(await botController.addUserBot(userId, userName)===true){
-            let userControls = botController.getUserControlsBot(userName);
-            telegram.sendMessage(message.chat.id, userControls); 
-            botController.sendMessageToUserBot(telegram, userId);
+        try{
+            if(await botController.addUserBot(userId, userName)===true){
+                let userControls = botController.getUserControlsBot(userName);
+                telegram.sendMessage(message.chat.id, userControls); 
+                botController.sendMessageToUserBot(telegram, userId);
+            }
+            else{
+                telegram.sendMessage(message.chat.id, CONSTANTS.MESSAGES.SUBSCRIPTIONERRORMESSAGE);
+            }
         }
-        else{
+        catch(e){
             telegram.sendMessage(message.chat.id, CONSTANTS.MESSAGES.SUBSCRIPTIONERRORMESSAGE);
         }
     }
