@@ -61,8 +61,8 @@ telegram.on("text", async (message) => {
 //send message to users
 sendMesageToUsers();
 
-//send message to users once in one hour
-setInterval(sendMesageToUsers, 3600000);
+//send message to users once in eight hour
+setInterval(sendMesageToUsers, 28800000);
 function sendMesageToUsers(){
     botController.sendMessageToUsersBot(telegram);
 }
