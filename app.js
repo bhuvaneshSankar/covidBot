@@ -58,9 +58,6 @@ telegram.on("text", async (message) => {
   }
 });
 
-//send message to users
-sendMesageToUsers();
-
 //send message to users once in twenty four hour
 setInterval(sendMesageToUsers, 86400000);
 function sendMesageToUsers(){
